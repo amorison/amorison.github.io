@@ -17,3 +17,5 @@ fn main() {
 
 I want to write some inline maths \\(\int_0^\infty e^{-x^2}\\) and formulas
 $$\frac{Df}{Dt} = \frac{\partial f}{\partial t} + \boldsymbol v\cdot\nabla f$$
+
+Testing of **markdown** various *style*
