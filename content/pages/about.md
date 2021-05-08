@@ -43,16 +43,24 @@ Here is a (chaotic) list of miscellaneous tools I use and related links.
 
 - [Python](https://www.python.org/), a high-level programming language with
   a rich ecosystem.
+    - the [standard library](https://docs.python.org/3/library/) is huge and
+      well-documented.
     - [numpy](https://numpy.org/), for fast and convenient ndarray manipulation
       and linear algebra.
     - [scipy](https://www.scipy.org/scipylib/index.html), a library of
       numerical routines built around numpy.
     - [matplotlib](https://matplotlib.org/), to plot your data
 - [Rust](https://www.rust-lang.org/), a system programming language that
-  manages to combine excellent performances, memory safety, and high-level
+  manages to combine excellent performances, safety, and high-level
   abstractions thanks to a clever type system and ownership model.
     - The [Rust book](https://doc.rust-lang.org/book/) is a great introduction
       to the language.
+    - The [standard library documentation](https://doc.rust-lang.org/std/)
+      contains a wealth of explanations about many aspects of the language and
+      useful abstractions.
+    - The [Reference](https://doc.rust-lang.org/reference/index.html) and
+      [Rustonomicon](https://doc.rust-lang.org/nomicon/index.html) go into the
+      depth of the language.
 - [LaTeX](https://www.latex-project.org/), the full-fledged typesetting system.
 - [Vim](https://www.vim.org/), the famous editor that's available pretty much
   anywhere.
