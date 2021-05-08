@@ -10,7 +10,9 @@ some general scientific background but who are not necessarily experts in my
 own field.  My primary research topic is the dynamics and evolution of
 planetary interiors.  My main tool to do so is computational fluid dynamics.  I
 use theoretical and numerical methods to modelize and simulate convection in
-planetary contexts.  I am therefore interested in various branches of physics,
+planetary contexts.
+[Here is the list of my publications](@/pages/publications.md).
+My research and personal curiosity has led me to various branches of physics,
 mathematics, and computer sciences, including but not limited to:
 
 - *fluid mechanics*, the branch of continuum mechanics focused on the description
