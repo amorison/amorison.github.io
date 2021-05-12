@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://adrienmorison.com/</loc>
+    </url>
+    <url>
+        <loc>https://adrienmorison.com/about/</loc>
+    </url>
+    <url>
+        <loc>https://adrienmorison.com/categories/</loc>
+    </url>
+    <url>
+        <loc>https://adrienmorison.com/categories/meta/</loc>
+    </url>
+    <url>
+        <loc>https://adrienmorison.com/first/</loc>
+        <lastmod>2021-05-06</lastmod>
+    </url>
+    <url>
+        <loc>https://adrienmorison.com/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://adrienmorison.com/publications/</loc>
+    </url>
+    <url>
+        <loc>https://adrienmorison.com/tags/</loc>
+    </url>
+    <url>
+        <loc>https://adrienmorison.com/tags/meta/</loc>
+    </url>
+</urlset>
