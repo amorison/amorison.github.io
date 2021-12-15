@@ -6,6 +6,12 @@ template = "about.html"
 
 Publications:
 
+- **Morison A**, Labrosse S, and Choblet G.\
+  Sublimation-driven convection in Sputnik Planitia on Pluto.\
+  _Nature_, 2021.
+  [SharedIt](https://rdcu.be/cDhK6),
+  [DOI](https://doi.org/10.1038/s41586-021-04095-w),
+  [RG](https://www.researchgate.net/publication/357061669_Sublimation-driven_convection_in_Sputnik_Planitia_on_Pluto).
 - Bolrão D,  Ballmer M, **Morison A**, Rozel A, Sanan P, Labrosse S, and
   Tackley P.\
   Timescales of chemical equilibrium between the convecting solid mantle and
