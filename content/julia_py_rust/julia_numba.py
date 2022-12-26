@@ -29,7 +29,7 @@ class ComplexRegion:
 @numba.vectorize(
     ["uint32(complex128, complex128, float64, uint32)"],
 )
-def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int):
+def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int) -> int:
     thr_sqr = threshold**2
     for i in range(itermax):
         z_0 = z_0**2 + c_0

@@ -13,7 +13,7 @@ provides plenty of eye-candy to lure the innocent reader.
 
 # Julia sets
 
-I focus here on the filled julia set associated with the following complex
+I focus here on the filled Julia set associated with the following complex
 quadratic polynomial:
 
 $$f(z) = z^2 + c_0$$
@@ -32,10 +32,10 @@ magnitude.  This is what it looks like for $c_0 = -0.835 -0.2321i$:
 
 This image has been generated as follow:
 
-- $x$ goes from -1.6 (left) to 1.6 (right), with a resolution of 1000 pixels
-- $y$ goes from -1 (bottom) to 1 (top), with a resolution of 625 pixels
-- each pixel in the image corresponds to a $z_0=x+iy$
-- up to 80 iterations of $z_{n+1} = z_n^2 + c_0$ are performed on each pixel
+- $x$ goes from -1.6 (left) to 1.6 (right), with a resolution of 1000 pixels;
+- $y$ goes from -1 (bottom) to 1 (top), with a resolution of 625 pixels;
+- each pixel in the image corresponds to a $z_0=x+iy$;
+- up to 80 iterations of $z_{n+1} = z_n^2 + c_0$ are performed on each pixel;
 - the grayscale represents how many iterations it took to reach
   $|z_n|\geqslant 2$, going from black (diverged in 1 iteration), to white (has
   not diverged after 80 iterations).
@@ -60,7 +60,7 @@ smaller resolution image of the same region:
 interesting work happens in the `divergence` function:
 
 ```python
-def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int):
+def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int) -> int:
     for i in range(itermax):
         z_0 = z_0**2 + c_0
         if abs(z_0) >= threshold:
@@ -116,7 +116,8 @@ Computing and saving the image takes 2 minutes and 19 seconds, the vast
 majority of that time being spent calling and executing `divergence`.  This
 already exposes a limitation of the approach in this first implementation:
 `numpy.vectorize` doesn't perform any kind of optimization and merely loops
-over the Python function.  This is convenient to call an arbitrary scalar
+over the image, calling the Python function on every pixel in a scalar fashion.
+This is convenient to call an arbitrary scalar
 function over a fairly small array, but costly when dealing with larger arrays.
 
 # Python implementation with `numpy` operations
@@ -186,7 +187,7 @@ simple enough that `numba.vectorize`  can act as a drop-in replacement of
 @numba.vectorize(
     ["uint32(complex128, complex128, float64, uint32)"],
 )
-def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int):
+def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int) -> int:
     for i in range(itermax):
         z_0 = z_0**2 + c_0
         if abs(z_0) >= threshold:
@@ -223,7 +224,7 @@ of readability to try and cut down this time:
 @numba.vectorize(
     ["uint32(complex128, complex128, float64, uint32)"],
 )
-def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int):
+def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int) -> int:
     thr_sqr = threshold**2
     for i in range(itermax):
         z_0 = z_0**2 + c_0
@@ -275,6 +276,13 @@ advantages:
   of things at all;
 - it is much easier to keep the layer between Rust and Python as thin as
   possible, avoiding e.g. GIL-related issues as much as possible.
+
+Please note that the goal of these explanations is not to be a viable
+substitute for [PyO3 documentation](https://pyo3.rs).  Duplicating the latter
+would be pointless and doomed to be out-of-date sooner or later.  This article
+only aims at providing broad explanations on how to organize a project to use
+PyO3 and introducing some of its features, in the hope that it piques your
+interest.
 
 ## Pure Rust library
 
@@ -492,10 +500,11 @@ The PyO3 project offers ways to build and publish wheels for several platforms,
 please see the documentations for more information.
 
 One thing still missing from PyO3 at the time of writing is the automatic
-generation of type annotations of the Python library (e.g. for consumption by
-`mypy` or an LSP server).  This requires manually writing a stub with type
-annotations if you care about these things, see `/py-api/juliaset.pyi` for our
-package.
+generation of type annotations of the Python library, e.g. for consumption by
+[`mypy` (static type checker)](https://mypy.readthedocs.io/en/stable/) or a
+[language server](https://en.wikipedia.org/wiki/Language_Server_Protocol).
+This requires manually writing a stub with type annotations if you care about
+these things, see `/py-api/juliaset.pyi` for our package.
 
 ## Rust CLI
 

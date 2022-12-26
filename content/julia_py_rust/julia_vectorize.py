@@ -25,7 +25,7 @@ class ComplexRegion:
         return x_s[:, np.newaxis] + y_s[np.newaxis, :] * 1j
 
 
-def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int):
+def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int) -> int:
     for i in range(itermax):
         z_0 = z_0**2 + c_0
         if abs(z_0) >= threshold:
