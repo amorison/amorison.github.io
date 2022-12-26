@@ -69,7 +69,7 @@ def divergence(z_0: complex, c_0: complex, threshold: float, itermax: int) -> in
 ```
 
 This is a direct implementation of the algorithm described in the previous
-section, taking one value of $z_0$ and returning how many iterations it tooks
+section, taking one value of $z_0$ and returning how many iterations it took
 for the associated sequence to diverge.  This function is then applied to an
 array containing all the values of $z_0$ for our image, [leveraging
 `numpy.vectorize`](https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html):
