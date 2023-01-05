@@ -144,9 +144,10 @@ class JuliaDiv:
 ```
 
 For convenience, the full code with this modification [can be accessed
-here](julia.py).  This time, the entire array is processed at each iteration,
-filling with `np.nan` the points that have already diverged and saving the
-latest points that have diverged in the `div` array.
+here](julia.py).  This time, the entire `z_s` array is processed at each
+iteration.  The points of `z_s` that have diverged are filled with `np.nan`,
+and the latest points that have diverged are saved in the `div` array to build
+the output image.
 
 Compared to the previous implementation, this is quite wasteful in terms of
 calculations as it is unnecessary to keep computing the sequence on points
@@ -177,7 +178,7 @@ some extraneous calculations.
 # Python implementation with Numba
 
 [Numba is a JIT compiler](https://numba.pydata.org), interacting particularly
-well with `numpy`.  In particular, it widens the set of operations than can
+well with `numpy`.  In particular, it widens the set of operations that can
 be efficiently vectorized over numpy arrays by compiling supported Python
 operations to machine code.  In the present case, our function `divergence` is
 simple enough that `numba.vectorize`  can act as a drop-in replacement of
@@ -330,7 +331,7 @@ In particular, [`ArrayBase::mapv_into_any`](
 https://docs.rs/ndarray/0.15.6/ndarray/struct.ArrayBase.html#method.mapv_into_any
 ) offers a very ergonomic way to map each $z_0$ to the "divergence number".
 
-## Exposing a Python API
+## Exposing Rust code as a Python API
 
 Once the core Rust library is implemented, the next step is to build a thin
 layer around its public API to expose it to Python.  As discussed earlier, this
@@ -381,7 +382,8 @@ Three lines, highlighted above, are noteworthy:
 - the `juliaset` pure Rust library that we wrote before is marked as a
   dependency;
 - the following features of PyO3 are used:
-  - `extension-module` to use the tools necessary to expose a Python API;
+  - `extension-module` to use the tools necessary to expose Rust code as a
+    Python API;
   - `num-complex` to handle complex types and allow automatic conversions
     between Python types and `Complex64` on Rust side;
   - `abi3-py37` to build wheels that are compatible with Python 3.7 and above
@@ -602,13 +604,22 @@ numba (no square root) | 3.2 | 97.7% | 46.7%
 Rust backend / Rust CLI | 2.8 | 98.0% | 12.5%
 Rust CLI (minimal compression) | 2.1 | 98.5% | 25.0%
 
-As always when dealing with performances, results may vary widely depending
-on the hardware, the versions of the tools, the operating system, and, more
-importantly, the actual problem at hand.  When dealing with problems that
-cannot be expressed directly with `numpy` loops or methods, the general trend
-that pure Python is slower than implicit numpy loops (at the cost of more
-computations), themselves slower than `numba`-wrapped code, itself slower than
-bespoke low-level code would probably hold in many scenarios, but please do
-keep in mind that the effective speed-up gained between each of those is highly
-problem-dependent.  Profiling and measuring is in any case the only sure way to
-identify bottlenecks and which optimizations actually improve performance.
+A general strategy to improve the performances of a Python program that cannot
+be quite expressed with `numpy` loops or methods would be to try the following
+implementations:
+
+- wrap in `np.vectorize` the calculation written in Python;
+- rewrite the computation to use implicit `numpy` loops and methods as much as
+  possible, even if it means doing more work;
+- wrap in `numba.vectorize` the calculation written in Python;
+- write a bespoke low-level implementation of the desired calculation and
+  expose it to Python.
+
+For most problems, there is a good chance that each of those implementations
+will yield better performance than the previous one.  However, as always when
+dealing with performances, results may vary widely depending on the hardware,
+the versions of the tools, the operating system, and, more importantly, the
+actual problem at hand.  In particular, the effective speed-up gained between
+each of those implementations is highly problem-dependent.  Profiling and
+measuring is in any case the only sure way to identify bottlenecks and which
+optimizations actually improve performance.
