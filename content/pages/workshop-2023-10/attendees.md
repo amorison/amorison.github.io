@@ -26,6 +26,7 @@ template = "simplepage.html"
 1. Gabriel Meletti (Physique, ENS Lyon)
 1. Jack Morton (University of Exeter)
 1. Alexandre Nairabeze (Observatoire de Paris, LERMA, LESIA)
+1. Philippe Odier (Physique, ENS Lyon)
 1. Nicolas Perez (CRAL, ENS Lyon)
 1. Alain Pumir (Physique, ENS Lyon)
 1. Pascal Tremblin (Maison de la Simulation, CEA Saclay)

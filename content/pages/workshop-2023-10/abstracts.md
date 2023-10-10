@@ -244,7 +244,28 @@ called staircases. Staircases are observed even if the density stratification
 is unstable. The mechanisms governing the transitions from a single convection
 roll to a single finger layer and a staircase will be discussed.
 
-- Andrew Cumming - **Composition gradients and convection in dense interiors: giant planets and white dwarfs**
+- Andrew Cumming - **Composition gradients and convection in dense interiors: giant planets and white dwarfs**  
+I will discuss two situations involving the interaction of composition
+gradients and convection driven by boundary fluxes: the evolving composition
+profile of Jupiter's interior and crystallization-driven fingering convection
+in white dwarfs. Both are motivated by recent observational results - the
+inferred density profile of Jupiter from the Juno mission, and new results on
+cooling white dwarfs from Gaia. For both situations, I will discuss the
+important role of rotation, and likely important effects of compressibility
+which has yet to be included in simulations. For Jupiter, I will show results
+from Boussinesq simulations of penetrative convection and layer formation at
+Prandtl number<1, and discuss the penetration rate and the mechanism for layer
+formation and how it compares to evolutionary models of Jupiter. These
+simulations suggest that rotation acts to significantly reduce the efficiency
+with which heavy elements can be mixed into the convection zone. For white
+dwarfs, I will discuss the regime of convection driven by chemical separation
+during crystallization. The large thermal conductivity of the white dwarf
+generally leads to fingering/thermohaline convection with up-gradient heat
+transport. I will show the current state of evolutionary models and
+(Boussinesq) simulations of this kind of convection, and discuss what further
+work is needed to be able to accurately follow the evolution and to assess
+whether white dwarf magnetic fields could originate from a
+crystallization-driven dynamo.
 
 ## Gravity waves (and associated problems)
 
