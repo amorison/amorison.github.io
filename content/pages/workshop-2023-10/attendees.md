@@ -46,7 +46,6 @@ template = "simplepage.html"
 1. Céline Guervilly (Newcastle University)
 1. Thomas Guillet (University of Exeter)
 1. Ulrich Hansen (Institute for Geophysics, University of Münster)
-1. Eyal Heifetz (Tel Aviv University)
 1. Friedrich Kupka (UAS Technikum Wien, Austria)
 1. Stéphane Labrosse (LGL, ENS Lyon)
 1. Guillaume Laibe (CRAL, ENS Lyon)

@@ -351,30 +351,6 @@ process by wave-wave interactions. Stratified turbulence is obtained at small
 scales as the outcome of this cascade process. Consequences for vertical mixing
 and mean flow generation by turbulence will be discussed.
 
-- Eyal Heifetz - **On the non-Boussinesq effect of self gravitating Rossby interfacial waves in proto-stellar accretion discs**  
-The dynamical response of edge waves under the influence of self-gravity is
-examined in an idealised two-dimensional model of a proto-stellar disc,
-characterised in steady state as a rotating vertically infinite cylinder of
-fluid with constant density except for a single density interface at some
-radius $r_0$. The fluid in basic state is prescribed to rotate with a Keplerian
-profile $Ω_k(r)\sim r^{−3/2}$ modified by some additional azimuthal sheared
-flow. A linear analysis shows that there are two azimuthally propagating edge
-waves, kin to the familiar Rossby waves and surface gravity waves in
-terrestrial studies, which move opposite to one another with respect to the
-local basic state rotation rate at the interface. Instability only occurs if
-the radial pressure gradient is opposite to that of the density jump (unstably
-stratified) where self-gravity acts as a wave stabiliser irrespective of the
-stratification of the system. The propagation properties of the waves are
-discussed in detail in the language of vorticity edge waves. The roles of both
-Boussinesq and non-Boussinesq effects upon the stability and propagation of
-these waves with and without the inclusion of self-gravity are then quantified.
-The dynamics involved with self-gravity non-Boussinesq effect is shown to be a
-source of vorticity production where there is a jump in the basic state density
-In addition, self-gravity also alters the dynamics via the radial main pressure
-gradient, which is a Boussinesq effect. Further applications of these
-mechanical insights are presented in the conclusion including the ways in which
-multiple density jumps or gaps may or may not be stable.
-
 ## Beyond sphericity: deformation effects due to fast rotation
 
 - Michel Rieutord - **Modelling Rapidly Rotating Stars**  

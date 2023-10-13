@@ -43,9 +43,17 @@ Toulouse)
 - From the airport: take the Rhonexpress train to Part-Dieu railway station.
 - From Part-Dieu railway station:
   - exit at "Porte du Rhône";
-  - take subway line B towards Oullins, exit at Debourg.
+  - take subway line B towards Oullins, exit at Stade de Gerland.
 - From Perrache railway station:
-  - take tram T1 towards Debourg, exit at Debourg.
+  - take tram T1 towards Debourg, exit at ENS Lyon.
+
+
+### Access to Salle Condorcet
+
+Called ["Salle Place de l'École" on Google maps](https://maps.app.goo.gl/pz48SyXCwfGhgw577).
+Entrance on "Allée d'Italie".
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d368.63227738441213!2d4.82762836844468!3d45.72993811147785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea2be9affbf9%3A0xb59a7336eb22cd24!2sSalle%20Place%20de%20l&#39;%C3%A9cole%20-%20ENS%20Lyon%20Monod!5e0!3m2!1sen!2suk!4v1697194921394!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 
 ### Hotels

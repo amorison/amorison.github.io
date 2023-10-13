@@ -55,8 +55,7 @@ Time | Speaker | Title
 14:10 - 14:50 | Guillaume Roullet | The energetics of mixing in implicit large eddy simulations of oceanic flows
 14:50 - 15:30 | Joel Sommeria | From internal gravity waves to turbulence and mean flow generation
 **15:30 - 16:00** | | **Coffee break**
-16:00 - 16:40 | Eyal Heifetz | On the non-Boussinesq effect of self gravitating Rossby interfacial waves in proto-stellar accretion discs
-**16:40 - 17:30** | | **Discussion**, chair D. Lecoanet
+**16:00 - 16:40** | | **Discussion**, chair D. Lecoanet
 **19:30** | | **Conference dinner**
 
 ## Thursday 19 - Beyond sphericity: deformation effects due to fast rotation
