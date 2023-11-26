@@ -6,6 +6,22 @@ template = "about.html"
 
 Publications:
 
+- Le Saux A, Baraffe I, Guillet T, Vlaykov D, **Morison A**, Pratt J, Constantino T, and Goffrey T.\
+  Two-dimensional simulations of internal gravity waves in a $5 M_\odot$ zero-age-main-sequence model.\
+  _Monthly Notices of the Royal Astronomical Society_, 2023.
+  [DOI](https://doi.org/10.1093/mnras/stad1067).
+- Lebec L, Labrosse S, **Morison A**, and Tackley P.\
+  Scaling of convection in high-pressure ice layers of large icy moons and implications for habitability\
+  _Icarus_, 2023.
+  [DOI](https://doi.org/10.1016/j.icarus.2023.115494)
+- Baraffe I, Clarke J, **Morison A**, Vlaykov D, Constantino T, Goffrey T, Guillet T, Le Saux A, and Pratt J.\
+  A study of convective core overshooting as a function of stellar mass based on two-dimensional hydrodynamical simulations.\
+  _Monthly Notices of the Royal Astronomical Society_, 2023.
+  [DOI](https://doi.org/10.1093/mnras/stad009)
+- Vlaykov D, Baraffe I, Constantino T, Goffrey T, Guillet T, Le Saux A, **Morison A**, and Pratt J.\
+  Impact of radial truncation on global 2D hydrodynamic simulations for a Sun-like model.\
+  _Monthly Notices of the Royal Astronomical Society_, 2022.
+  [DOI](https://doi.org/10.1093/mnras/stac1278)
 - **Morison A**, Labrosse S, and Choblet G.\
   Sublimation-driven convection in Sputnik Planitia on Pluto.\
   _Nature_, 2021.
