@@ -6,6 +6,10 @@ template = "about.html"
 
 Publications:
 
+- Lebec L, Labrosse S, **Morison A**, Bolrão D, and Tackley P. \
+  Effects of salts on the exchanges through high-pressure ice layers of large ocean worlds.\
+  _Icarus_, 2024.
+  [DOI](https://doi.org/10.1016/j.icarus.2024.115966).
 - Le Saux A, Baraffe I, Guillet T, Vlaykov D, **Morison A**, Pratt J, Constantino T, and Goffrey T.\
   Two-dimensional simulations of internal gravity waves in a $5 M_\odot$ zero-age-main-sequence model.\
   _Monthly Notices of the Royal Astronomical Society_, 2023.
