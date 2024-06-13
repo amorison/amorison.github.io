@@ -6,6 +6,10 @@ template = "about.html"
 
 Publications:
 
+- **Morison A**, Labrosse S, Deguen R, and Alboussière T.\
+  Onset of thermal convection in a solid spherical shell with melting at either or both boundaries.\
+  _GJI_, 2024.
+  [DOI](https://doi.org/10.1093/gji/ggae208).
 - Lebec L, Labrosse S, **Morison A**, Bolrão D, and Tackley P. \
   Effects of salts on the exchanges through high-pressure ice layers of large ocean worlds.\
   _Icarus_, 2024.
