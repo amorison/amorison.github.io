@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+      
+    
+
+      <title>Adrien Morison&#x27;s website - Speed up a Python program with Rust</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https://adrienmorison.com/site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">Adrien&#x27;s website</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;publications">
+                            Publications
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;adrienmorison.com">Adrien&#x27;s website</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;publications">
+                                    Publications
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://adrienmorison.com/julia-py-rust/#julia-sets" class="toc-link">Julia sets</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://adrienmorison.com/julia-py-rust/#python-implementation-with-numpy-vectorize" class="toc-link">Python implementation with numpy.vectorize</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://adrienmorison.com/julia-py-rust/#python-implementation-with-numpy-operations" class="toc-link">Python implementation with numpy operations</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://adrienmorison.com/julia-py-rust/#python-implementation-with-numba" class="toc-link">Python implementation with Numba</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://adrienmorison.com/julia-py-rust/#rust-backed-implementation" class="toc-link">Rust-backed implementation</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://adrienmorison.com/julia-py-rust/#pure-rust-library" class="toc-link">Pure Rust library</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://adrienmorison.com/julia-py-rust/#exposing-rust-code-as-a-python-api" class="toc-link">Exposing Rust code as a Python API</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://adrienmorison.com/julia-py-rust/#building-and-using-the-python-package" class="toc-link">Building and using the Python package</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://adrienmorison.com/julia-py-rust/#rust-cli" class="toc-link">Rust CLI</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://adrienmorison.com/julia-py-rust/#closing-remarks" class="toc-link">Closing remarks</a>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;adrienmorison.com&#x2F;julia-py-rust&#x2F;">Speed up a Python program with Rust</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2022-12-24</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <p>In this entry, I showcase how to use Rust to do the legwork in a Python
+program.  I focus on the calculation of <a href="https://en.wikipedia.org/wiki/Julia_set">Julia sets
+representations</a>, as this problem
+provides plenty of eye-candy to lure the innocent reader.</p>
+<h1 id="julia-sets">Julia sets</h1>
+<p>I focus here on the filled Julia set associated with the following complex
+quadratic polynomial:</p>
+<p>$$f(z) = z^2 + c_0$$</p>
+<p>where $z$ is a complex number and $c_0$ a fixed complex parameter.  The filled
+Julia set associated with $c_0$ is the set of $z_0$ such as the sequence</p>
+<p>$$z_{n+1} = f(z_n) = z_n^2 + c_0$$</p>
+<p>does not diverge.  A common way to represent those sets is to apply the
+sequence a few tens or hundreds of times to a region of the complex plane and
+map how many iterations it takes for the sequence to diverge beyond a chosen
+magnitude.  This is what it looks like for $c_0 = -0.835 -0.2321i$:</p>
+<p><img src="https://adrienmorison.com/julia-py-rust/overview.png" alt="Julia set" /></p>
+<p>This image has been generated as follow:</p>
+<ul>
+<li>$x$ goes from -1.6 (left) to 1.6 (right), with a resolution of 1000 pixels;</li>
+<li>$y$ goes from -1 (bottom) to 1 (top), with a resolution of 625 pixels;</li>
+<li>each pixel in the image corresponds to a $z_0=x+iy$;</li>
+<li>up to 80 iterations of $z_{n+1} = z_n^2 + c_0$ are performed on each pixel;</li>
+<li>the grayscale represents how many iterations it took to reach
+$|z_n|\geqslant 2$, going from black (diverged in 1 iteration), to white (has
+not diverged after 80 iterations).</li>
+</ul>
+<p>The image obtained with this procedure is an approximative representation of
+the filled Julia set, the grayscale giving an idea of how close we are to the
+set in a particular pixel.</p>
+<p>In the rest of this entry, I focus on a smaller region with many details, so
+that the computation is more demanding.  The region is $[-0.1, 0.1]^2$,
+resolved with 100 iterations and 4000 pixels along each direction.  For
+aesthetic reasons, pixels that have diverged in 20 iterations or fewer are
+fully black.  The <a href="https://adrienmorison.com/julia-py-rust/zoomhighres.png">full image is accessible here</a>.  Here is a
+smaller resolution image of the same region:</p>
+<p><img src="https://adrienmorison.com/julia-py-rust/zoomlowres.png" alt="Julia set around 0" /></p>
+<h1 id="python-implementation-with-numpy-vectorize">Python implementation with <code>numpy.vectorize</code></h1>
+<p><a href="https://adrienmorison.com/julia-py-rust/julia_vectorize.py">Here is a simple Python implementation</a>.  All the
+interesting work happens in the <code>divergence</code> function:</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#4d4d4c;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8e44be;">def </span><span style="color:#3366cc;">divergence</span><span>(</span><span style="color:#6969ff;">z_0</span><span>: </span><span style="color:#f0ae00;">complex</span><span>, </span><span style="color:#6969ff;">c_0</span><span>: </span><span style="color:#f0ae00;">complex</span><span>, </span><span style="color:#6969ff;">threshold</span><span>: </span><span style="color:#f0ae00;">float</span><span>, </span><span style="color:#6969ff;">itermax</span><span>: </span><span style="color:#f0ae00;">int</span><span>) -&gt; </span><span style="color:#f0ae00;">int</span><span>:
+</span><span>    </span><span style="color:#8e44be;">for </span><span>i </span><span style="color:#8e44be;">in </span><span style="color:#3366cc;">range(itermax)</span><span>:
+</span><span>        z_0 </span><span style="color:#1aa7b0;">= </span><span>z_0</span><span style="color:#1aa7b0;">**</span><span style="color:#6969ff;">2 </span><span style="color:#1aa7b0;">+ </span><span>c_0
+</span><span>        </span><span style="color:#8e44be;">if </span><span style="color:#3366cc;">abs(z_0) </span><span style="color:#1aa7b0;">&gt;= </span><span>threshold:
+</span><span>            </span><span style="color:#8e44be;">return </span><span>i
+</span><span>    </span><span style="color:#8e44be;">return </span><span>itermax
+</span></code></pre>
+<p>This is a direct implementation of the algorithm described in the previous
+section, taking one value of $z_0$ and returning how many iterations it took
+for the associated sequence to diverge.  This function is then applied to an
+array containing all the values of $z_0$ for our image, <a href="https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html">leveraging
+<code>numpy.vectorize</code></a>:</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#4d4d4c;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8e44be;">class </span><span style="color:#f0ae00;">JuliaDiv</span><span>:
+</span><span>    </span><span style="color:#999999;"># ...
+</span><span>    </span><span style="color:#8e44be;">def </span><span style="color:#3366cc;">over</span><span>(</span><span style="color:#6969ff;">self</span><span>, </span><span style="color:#6969ff;">plane</span><span>: ComplexRegion) -&gt; NDArray[np.floating]:
+</span><span>        itermin, itermax </span><span style="color:#1aa7b0;">= </span><span style="color:#f55800;">self</span><span>.n_iterations
+</span><span>        </span><span style="color:#8e44be;">assert </span><span>itermin </span><span style="color:#1aa7b0;">&lt; </span><span>itermax
+</span><span>        z_s </span><span style="color:#1aa7b0;">= </span><span style="color:#3366cc;">plane.</span><span style="color:#f55800;">build</span><span style="color:#3366cc;">(</span><span style="color:#f55800;">self</span><span style="color:#3366cc;">.resolution)
+</span><span>        div_vect </span><span style="color:#1aa7b0;">= </span><span style="color:#3366cc;">np.</span><span style="color:#f55800;">vectorize</span><span style="color:#3366cc;">(divergence, </span><span style="color:#6969ff;">otypes</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">[np.uint32])
+</span><span>        div </span><span style="color:#1aa7b0;">= </span><span style="color:#f55800;">div_vect</span><span style="color:#3366cc;">(z_s, </span><span style="color:#f55800;">self</span><span style="color:#3366cc;">.c_0, </span><span style="color:#f55800;">self</span><span style="color:#3366cc;">.threshold, itermax)
+</span><span>        </span><span style="color:#8e44be;">return </span><span>(</span><span style="color:#3366cc;">np.</span><span style="color:#f55800;">maximum</span><span style="color:#3366cc;">(div, itermin) </span><span style="color:#1aa7b0;">- </span><span>itermin) </span><span style="color:#1aa7b0;">/ </span><span>(itermax </span><span style="color:#1aa7b0;">- </span><span>itermin)
+</span></code></pre>
+<p>In this snippet, <code>z_s</code> is the array containing all the values of <code>z_0</code> in the
+image, <code>div_vect</code> is the vectorized version of <code>divergence</code>, and <code>div</code> is the
+array of the number of iterations it took for the corresponding <code>z_0</code> to
+diverge.  This number of iterations is then projected on $[0, 1]$ for plotting
+purposes.  Profiling this version of the code when calculating the target image
+leads to the following:</p>
+<pre data-lang="txt" style="background-color:#ffffff;color:#4d4d4c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>$ python -m cProfile --sort cumulative julia_vectorize.py
+</span><span>         544664132 function calls (544660624 primitive calls) in 139.448 seconds
+</span><span>
+</span><span>   Ordered by: cumulative time
+</span><span>
+</span><span>   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+</span><span>    164/1    0.001    0.000  139.448  139.448 {built-in method builtins.exec}
+</span><span>        1    0.001    0.001  139.448  139.448 julia_vectorize.py:1(&lt;module&gt;)
+</span><span>        1    0.019    0.019  139.311  139.311 julia_vectorize.py:58(main)
+</span><span>        1    0.046    0.046  139.201  139.201 julia_vectorize.py:43(over)
+</span><span>        1    0.134    0.134  139.106  139.106 function_base.py:2300(__call__)
+</span><span>        1    2.790    2.790  138.972  138.972 function_base.py:2399(_vectorize_call)
+</span><mark style="background-color:#e8e8e8;"><span> 16000000   98.280    0.000  135.577    0.000 julia_vectorize.py:28(divergence)
+</span></mark><span>528530089   37.298    0.000   37.298    0.000 {built-in method builtins.abs}
+</span><span>        9    0.606    0.067    0.606    0.067 {built-in method numpy.asanyarray}
+</span><span>... and a bunch of function calls with negligible cost
+</span></code></pre>
+<p>Computing and saving the image takes 2 minutes and 19 seconds, the vast
+majority of that time being spent calling and executing <code>divergence</code>.  This
+already exposes a limitation of the approach in this first implementation:
+<code>numpy.vectorize</code> doesn't perform any kind of optimization and merely loops
+over the image, calling the Python function on every pixel in a scalar fashion.
+This is convenient to call an arbitrary scalar
+function over a fairly small array, but costly when dealing with larger arrays.</p>
+<h1 id="python-implementation-with-numpy-operations">Python implementation with <code>numpy</code> operations</h1>
+<p>Can we do better than <code>numpy.vectorize</code> by relying on direct operations on
+arrays?  Yes, we can!  Instead of defining a <code>divergence</code> function and
+"vectorize" it, an equivalent computation can be expressed purely with <code>numpy</code>
+operations, like so:</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#4d4d4c;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8e44be;">class </span><span style="color:#f0ae00;">JuliaDiv</span><span>:
+</span><span>    </span><span style="color:#999999;"># ...
+</span><span>    </span><span style="color:#8e44be;">def </span><span style="color:#3366cc;">over</span><span>(</span><span style="color:#6969ff;">self</span><span>, </span><span style="color:#6969ff;">plane</span><span>: ComplexRegion) -&gt; NDArray[np.floating]:
+</span><span>        itermin, itermax </span><span style="color:#1aa7b0;">= </span><span style="color:#f55800;">self</span><span>.n_iterations
+</span><span>        </span><span style="color:#8e44be;">assert </span><span>itermin </span><span style="color:#1aa7b0;">&lt; </span><span>itermax
+</span><span>        z_s </span><span style="color:#1aa7b0;">= </span><span style="color:#3366cc;">plane.</span><span style="color:#f55800;">build</span><span style="color:#3366cc;">(</span><span style="color:#f55800;">self</span><span style="color:#3366cc;">.resolution)
+</span><span>        div </span><span style="color:#1aa7b0;">= </span><span style="color:#3366cc;">np.</span><span style="color:#f55800;">full_like</span><span style="color:#3366cc;">(z_s, itermax, </span><span style="color:#6969ff;">dtype</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">np.uint32)
+</span><span>        </span><span style="color:#8e44be;">for </span><span>i </span><span style="color:#8e44be;">in </span><span style="color:#3366cc;">range(itermax)</span><span>:
+</span><span>            z_s </span><span style="color:#1aa7b0;">= </span><span style="color:#3366cc;">np.</span><span style="color:#f55800;">square</span><span style="color:#3366cc;">(z_s) </span><span style="color:#1aa7b0;">+ </span><span style="color:#f55800;">self</span><span>.c_0
+</span><span>            diverged </span><span style="color:#1aa7b0;">= </span><span style="color:#3366cc;">np.</span><span style="color:#f55800;">abs</span><span style="color:#3366cc;">(z_s) </span><span style="color:#1aa7b0;">&gt;= </span><span style="color:#f55800;">self</span><span>.threshold
+</span><span>            div[diverged] </span><span style="color:#1aa7b0;">= </span><span style="color:#3366cc;">np.</span><span style="color:#f55800;">uint32</span><span style="color:#3366cc;">(i)
+</span><span>            z_s[diverged] </span><span style="color:#1aa7b0;">= </span><span>np.nan
+</span><span>        </span><span style="color:#8e44be;">return </span><span>(</span><span style="color:#3366cc;">np.</span><span style="color:#f55800;">maximum</span><span style="color:#3366cc;">(div, itermin) </span><span style="color:#1aa7b0;">- </span><span>itermin) </span><span style="color:#1aa7b0;">/ </span><span>(itermax </span><span style="color:#1aa7b0;">- </span><span>itermin)
+</span></code></pre>
+<p>For convenience, the full code with this modification <a href="https://adrienmorison.com/julia-py-rust/julia.py">can be accessed
+here</a>.  This time, the entire <code>z_s</code> array is processed at each
+iteration.  The points of <code>z_s</code> that have diverged are filled with <code>np.nan</code>,
+and the latest points that have diverged are saved in the <code>div</code> array to build
+the output image.</p>
+<p>Compared to the previous implementation, this is quite wasteful in terms of
+calculations as it is unnecessary to keep computing the sequence on points
+that have already diverged.  However, the computations and looping effectively
+happen on the <code>numpy</code> side, i.e. C and Fortran (compiled to machine code)
+instead of Python.  Let's see the profile:</p>
+<pre data-lang="txt" style="background-color:#ffffff;color:#4d4d4c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>$ python -m cProfile --sort cumulative julia.py
+</span><span>         134133 function calls (130623 primitive calls) in 19.057 seconds
+</span><span>
+</span><span>   Ordered by: cumulative time
+</span><span>
+</span><span>   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+</span><span>    164/1    0.001    0.000   19.057   19.057 {built-in method builtins.exec}
+</span><span>        1    0.000    0.000   19.057   19.057 julia.py:1(&lt;module&gt;)
+</span><span>        1    0.020    0.020   18.920   18.920 julia.py:48(main)
+</span><mark style="background-color:#e8e8e8;"><span>        1   18.802   18.802   18.858   18.858 julia.py:35(over)
+</span></mark><span>       17    0.001    0.000    0.262    0.015 __init__.py:1(&lt;module&gt;)
+</span><span>... and a bunch of function calls with negligible cost
+</span></code></pre>
+<p>This change already shaves off <em>2 minutes</em> of the 2 minutes and 19 seconds,
+leading to a 7-fold speedup.  In this case, it is much more performant to call
+operations that are vectorized at the machine code level even if it means doing
+some extraneous calculations.</p>
+<h1 id="python-implementation-with-numba">Python implementation with Numba</h1>
+<p><a href="https://numba.pydata.org">Numba is a JIT compiler</a>, interacting particularly
+well with <code>numpy</code>.  In particular, it widens the set of operations that can
+be efficiently vectorized over numpy arrays by compiling supported Python
+operations to machine code.  In the present case, our function <code>divergence</code> is
+simple enough that <code>numba.vectorize</code>  can act as a drop-in replacement of
+<code>numpy.vectorize</code> for a huge speedup:</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#4d4d4c;" class="language-python "><code class="language-python" data-lang="python"><span>@numba.</span><span style="color:#f55800;">vectorize</span><span>(
+</span><span>    [</span><span style="color:#699200;">&quot;uint32(complex128, complex128, float64, uint32)&quot;</span><span>],
+</span><span>)
+</span><span style="color:#8e44be;">def </span><span style="color:#3366cc;">divergence</span><span>(</span><span style="color:#6969ff;">z_0</span><span>: </span><span style="color:#f0ae00;">complex</span><span>, </span><span style="color:#6969ff;">c_0</span><span>: </span><span style="color:#f0ae00;">complex</span><span>, </span><span style="color:#6969ff;">threshold</span><span>: </span><span style="color:#f0ae00;">float</span><span>, </span><span style="color:#6969ff;">itermax</span><span>: </span><span style="color:#f0ae00;">int</span><span>) -&gt; </span><span style="color:#f0ae00;">int</span><span>:
+</span><span>    </span><span style="color:#8e44be;">for </span><span>i </span><span style="color:#8e44be;">in </span><span style="color:#3366cc;">range(itermax)</span><span>:
+</span><span>        z_0 </span><span style="color:#1aa7b0;">= </span><span>z_0</span><span style="color:#1aa7b0;">**</span><span style="color:#6969ff;">2 </span><span style="color:#1aa7b0;">+ </span><span>c_0
+</span><span>        </span><span style="color:#8e44be;">if </span><span style="color:#3366cc;">abs(z_0) </span><span style="color:#1aa7b0;">&gt;= </span><span>threshold:
+</span><span>            </span><span style="color:#8e44be;">return </span><span>i
+</span><span>    </span><span style="color:#8e44be;">return </span><span>itermax
+</span></code></pre>
+<p>With this simple modification, the runtime is down to 6 seconds!  This is
+already an impressive 3-fold speedup from the previous implementation.  Let's
+see what our program spends its time doing:</p>
+<pre data-lang="txt" style="background-color:#ffffff;color:#4d4d4c;" class="language-txt "><code class="language-txt" data-lang="txt"><span>$ perf record python julia_numba.py
+</span><span>$ perf report
+</span><mark style="background-color:#e8e8e8;"><span>  51.26%  python  libm.so.6                                 [.] hypot
+</span></mark><span>   7.83%  python  [JIT] tid 3393                            [.] 00007ff03763d2a2
+</span><span>   4.08%  python  [JIT] tid 3393                            [.] 0x00007ff03763d2a9
+</span><span>   2.27%  python  [JIT] tid 3393                            [.] 0x00007ff03763d270
+</span><span>   2.24%  python  [JIT] tid 3393                            [.] 0x00007ff03763d29c
+</span><span>   2.13%  python  [JIT] tid 3393                            [.] 0x00007ff03763d297
+</span><span>   2.10%  python  [JIT] tid 3393                            [.] 0x00007ff03763d2b5
+</span><span>   2.01%  python  [JIT] tid 3393                            [.] 0x00007ff03763d283
+</span><span>   1.92%  python  _imaging.cpython-310-x86_64-linux-gnu.so  [.] ImagingZipEncode
+</span><span>   1.70%  python  libpython3.10.so.1.0                      [.] _PyEval_EvalFrameDefault
+</span><span>   0.82%  python  libz.so.1.2.12                            [.] 0x00000000000033b5
+</span><span>...
+</span></code></pre>
+<p>Half the runtime is spent in <code>libm::hypot</code>, i.e. computing
+$|z_n|=\sqrt{x^2+y^2}$.  This seems like a good time to sacrifice a little bit
+of readability to try and cut down this time:</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#4d4d4c;" class="language-python "><code class="language-python" data-lang="python"><span>@numba.</span><span style="color:#f55800;">vectorize</span><span>(
+</span><span>    [</span><span style="color:#699200;">&quot;uint32(complex128, complex128, float64, uint32)&quot;</span><span>],
+</span><span>)
+</span><span style="color:#8e44be;">def </span><span style="color:#3366cc;">divergence</span><span>(</span><span style="color:#6969ff;">z_0</span><span>: </span><span style="color:#f0ae00;">complex</span><span>, </span><span style="color:#6969ff;">c_0</span><span>: </span><span style="color:#f0ae00;">complex</span><span>, </span><span style="color:#6969ff;">threshold</span><span>: </span><span style="color:#f0ae00;">float</span><span>, </span><span style="color:#6969ff;">itermax</span><span>: </span><span style="color:#f0ae00;">int</span><span>) -&gt; </span><span style="color:#f0ae00;">int</span><span>:
+</span><mark style="background-color:#e8e8e8;"><span>    thr_sqr </span><span style="color:#1aa7b0;">= </span><span>threshold</span><span style="color:#1aa7b0;">**</span><span style="color:#6969ff;">2
+</span></mark><span>    </span><span style="color:#8e44be;">for </span><span>i </span><span style="color:#8e44be;">in </span><span style="color:#3366cc;">range(itermax)</span><span>:
+</span><span>        z_0 </span><span style="color:#1aa7b0;">= </span><span>z_0</span><span style="color:#1aa7b0;">**</span><span style="color:#6969ff;">2 </span><span style="color:#1aa7b0;">+ </span><span>c_0
+</span><mark style="background-color:#e8e8e8;"><span>        </span><span style="color:#8e44be;">if </span><span>z_0.real</span><span style="color:#1aa7b0;">**</span><span style="color:#6969ff;">2 </span><span style="color:#1aa7b0;">+ </span><span>z_0.imag</span><span style="color:#1aa7b0;">**</span><span style="color:#6969ff;">2 </span><span style="color:#1aa7b0;">&gt;= </span><span>thr_sqr:
+</span></mark><span>            </span><span style="color:#8e44be;">return </span><span>i
+</span><span>    </span><span style="color:#8e44be;">return </span><span>itermax
+</span></code></pre>
+<p>We're now down to a runtime of 3.2 seconds!  The <a href="https://adrienmorison.com/julia-py-rust/julia_numba.py">full code is
+here</a>.</p>
+<p>Numba is an excellent tool to speed up a Python program that manipulates numpy
+arrays with minimal efforts.  For the problem at hand, this is a very
+reasonable solution.  However, it is limited to the operations Numba can
+compile to efficient machine code.  It can also be challenging to profile the
+application and assess how to further improve performances if need be.</p>
+<h1 id="rust-backed-implementation">Rust-backed implementation</h1>
+<p>A radical and very effective way to speed up a Python application is to rewrite
+the most demanding parts in a language that compiles to fast machine code and
+expose that code to Python via the Python C API.  This is essentially how numpy
+manages to be so fast: it is coded mainly in C and Fortran, and exposes a
+Python API that the end-user calls.  A combo that I find particularly ergonomic
+to do this is the <a href="https://www.rust-lang.org">Rust programming language</a> to
+write the demanding parts, along with the <a href="https://pyo3.rs">PyO3 project</a>, a
+collection of Rust libraries (a.k.a. crates) to bridge Rust and Python.</p>
+<p>In this section I show how to write a Rust-powered library that is a drop-in
+replacement of the previous Python implementation of the <code>ComplexRegion</code> and
+<code>JuliaDiv</code> classes.  <a href="https://github.com/amorison/juliaset">Here is the full implementation</a>, that you can explore as you follow along
+the explanations.  Note that the code is split in two crates (leveraging
+<a href="https://doc.rust-lang.org/cargo/reference/workspaces.html">the <em>workspace</em> feature of Cargo</a>):</p>
+<ul>
+<li>the Rust implementation itself, a pure Rust library at the root of the
+repository;</li>
+<li>the library exposing a Python API in the <code>/py-api</code> folder.</li>
+</ul>
+<p>One could choose a more direct organisation with only one library exposing a
+Python API and keep the pure Rust library as a private implementation detail.
+However, separating the Rust library and the Python API has multiple
+advantages:</p>
+<ul>
+<li>the pure Rust library can be easily tested on its own, without Python-related
+considerations;</li>
+<li>Rust projects can use the Rust library without caring about the Python side
+of things at all;</li>
+<li>it is much easier to keep the layer between Rust and Python as thin as
+possible, avoiding e.g. GIL-related issues as much as possible.</li>
+</ul>
+<p>Please note that the goal of these explanations is not to be a viable
+substitute for <a href="https://pyo3.rs">PyO3 documentation</a>.  Duplicating the latter
+would be pointless and doomed to be out-of-date sooner or later.  This article
+only aims at providing broad explanations on how to organize a project to use
+PyO3 and introducing some of its features, in the hope that it piques your
+interest.</p>
+<h2 id="pure-rust-library">Pure Rust library</h2>
+<p>The implementation (in <code>/src/lib.rs</code>) is fairly straightforward.  It is
+voluntarily coded in a very similar fashion to the Python code used until now.
+It uses <a href="https://docs.rs/ndarray/latest/ndarray/">ndarray</a> to manipulate 2D
+arrays, and <a href="https://docs.rs/num-complex/latest/num_complex/">num-complex</a> to
+manipulate complex numbers.</p>
+<pre data-lang="toml" style="background-color:#ffffff;color:#4d4d4c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#f55800;">package</span><span>]
+</span><span style="color:#f55800;">name </span><span>= </span><span style="color:#699200;">&quot;juliaset&quot;
+</span><span style="color:#f55800;">version </span><span>= </span><span style="color:#699200;">&quot;0.1.0&quot;
+</span><span style="color:#f55800;">edition </span><span>= </span><span style="color:#699200;">&quot;2021&quot;
+</span><span style="color:#f55800;">rust-version </span><span>= </span><span style="color:#699200;">&quot;1.60&quot;
+</span><span>
+</span><span>[</span><span style="color:#f55800;">dependencies</span><span>]
+</span><span style="color:#f55800;">ndarray </span><span>= </span><span style="color:#699200;">&quot;0.15.6&quot;
+</span><span style="color:#f55800;">num-complex </span><span>= </span><span style="color:#699200;">&quot;0.4.2&quot;
+</span></code></pre>
+<p>The core of the computation happens in the <code>JuliaDiv::over</code> method:</p>
+<pre data-lang="rust" style="background-color:#ffffff;color:#4d4d4c;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8e44be;">impl </span><span>JuliaDiv {
+</span><span>    </span><span style="color:#8e44be;">pub fn </span><span style="color:#3366cc;">over</span><span>(</span><span style="color:#1aa7b0;">&amp;</span><span style="color:#6969ff;">self</span><span>, </span><span style="color:#6969ff;">plane</span><span>: </span><span style="color:#1aa7b0;">&amp;</span><span>ComplexRegion) -&gt; Array2&lt;</span><span style="color:#8e44be;">f64</span><span>&gt; {
+</span><span>        </span><span style="color:#8e44be;">let </span><span>(itermin, itermax) </span><span style="color:#1aa7b0;">= </span><span style="color:#f55800;">self</span><span>.n_iterations;
+</span><span>        </span><span style="color:#8e44be;">let</span><span> thres_sqr </span><span style="color:#1aa7b0;">= </span><span style="color:#f55800;">self</span><span>.threshold.</span><span style="color:#3366cc;">powi</span><span>(</span><span style="color:#6969ff;">2</span><span>);
+</span><span>        plane.</span><span style="color:#3366cc;">build</span><span>(</span><span style="color:#f55800;">self</span><span>.resolution).</span><span style="color:#3366cc;">mapv_into_any</span><span>(|</span><span style="color:#8e44be;">mut </span><span style="color:#6969ff;">z_s</span><span>| {
+</span><span>            </span><span style="color:#8e44be;">let mut</span><span> i </span><span style="color:#1aa7b0;">= </span><span style="color:#6969ff;">0</span><span>;
+</span><span>            </span><span style="color:#8e44be;">loop </span><span>{
+</span><span>                z_s </span><span style="color:#1aa7b0;">=</span><span> z_s </span><span style="color:#1aa7b0;">*</span><span> z_s </span><span style="color:#1aa7b0;">+ </span><span style="color:#f55800;">self</span><span>.</span><span style="color:#8e44be;">c_0</span><span>;
+</span><span>                </span><span style="color:#8e44be;">if</span><span> i </span><span style="color:#1aa7b0;">==</span><span> itermax </span><span style="color:#1aa7b0;">||</span><span> z_s.</span><span style="color:#3366cc;">norm_sqr</span><span>() </span><span style="color:#1aa7b0;">&gt;</span><span> thres_sqr {
+</span><span>                    </span><span style="color:#8e44be;">break</span><span>;
+</span><span>                }
+</span><span>                i </span><span style="color:#1aa7b0;">+= </span><span style="color:#6969ff;">1</span><span>;
+</span><span>            }
+</span><span>            (i.</span><span style="color:#3366cc;">max</span><span>(itermin) </span><span style="color:#1aa7b0;">-</span><span> itermin) </span><span style="color:#1aa7b0;">as </span><span style="color:#8e44be;">f64 </span><span style="color:#1aa7b0;">/ </span><span>(itermax </span><span style="color:#1aa7b0;">-</span><span> itermin) </span><span style="color:#1aa7b0;">as </span><span style="color:#8e44be;">f64
+</span><span>        })
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>In particular, <a href="https://docs.rs/ndarray/0.15.6/ndarray/struct.ArrayBase.html#method.mapv_into_any"><code>ArrayBase::mapv_into_any</code></a> offers a very ergonomic way to map each $z_0$ to the "divergence number".</p>
+<h2 id="exposing-rust-code-as-a-python-api">Exposing Rust code as a Python API</h2>
+<p>Once the core Rust library is implemented, the next step is to build a thin
+layer around its public API to expose it to Python.  As discussed earlier, this
+is done in a separate crate in the same workspace to keep the interface between
+Rust and Python nice and tidy.  Adding a new crate in the current workspace is
+as simple as adding two lines in the main <code>/Cargo.toml</code>:</p>
+<pre data-lang="toml" style="background-color:#ffffff;color:#4d4d4c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#f55800;">package</span><span>]
+</span><span style="color:#f55800;">name </span><span>= </span><span style="color:#699200;">&quot;juliaset&quot;
+</span><span style="color:#f55800;">version </span><span>= </span><span style="color:#699200;">&quot;0.1.0&quot;
+</span><span style="color:#f55800;">edition </span><span>= </span><span style="color:#699200;">&quot;2021&quot;
+</span><span style="color:#f55800;">rust-version </span><span>= </span><span style="color:#699200;">&quot;1.60&quot;
+</span><span>
+</span><span>[</span><span style="color:#f55800;">dependencies</span><span>]
+</span><span style="color:#f55800;">ndarray </span><span>= </span><span style="color:#699200;">&quot;0.15.6&quot;
+</span><span style="color:#f55800;">num-complex </span><span>= </span><span style="color:#699200;">&quot;0.4.2&quot;
+</span><span>
+</span><mark style="background-color:#e8e8e8;"><span>[</span><span style="color:#f55800;">workspace</span><span>]
+</span></mark><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">members </span><span>= [</span><span style="color:#699200;">&quot;py-api&quot;</span><span>]
+</span></mark></code></pre>
+<p>where each element of the <code>members</code> list is a directory containing a crate.
+Its own manifest <code>/py-api/Cargo.toml</code> is fairly standard:</p>
+<pre data-lang="toml" style="background-color:#ffffff;color:#4d4d4c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#f55800;">package</span><span>]
+</span><span style="color:#f55800;">name </span><span>= </span><span style="color:#699200;">&quot;juliaset-py&quot;
+</span><span style="color:#f55800;">version </span><span>= </span><span style="color:#699200;">&quot;0.1.0&quot;
+</span><span style="color:#f55800;">edition </span><span>= </span><span style="color:#699200;">&quot;2021&quot;
+</span><span style="color:#f55800;">rust-version </span><span>= </span><span style="color:#699200;">&quot;1.60&quot;
+</span><span>
+</span><span>[</span><span style="color:#f55800;">lib</span><span>]
+</span><span style="color:#f55800;">name </span><span>= </span><span style="color:#699200;">&quot;juliaset&quot;
+</span><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">crate-type </span><span>= [</span><span style="color:#699200;">&quot;cdylib&quot;</span><span>]
+</span></mark><span>
+</span><span>[</span><span style="color:#f55800;">dependencies</span><span>]
+</span><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">juliaset </span><span>= { </span><span style="color:#f55800;">path </span><span>= </span><span style="color:#699200;">&quot;..&quot;</span><span>, </span><span style="color:#f55800;">version </span><span>= </span><span style="color:#699200;">&quot;0.1.0&quot; </span><span>}
+</span></mark><span style="color:#f55800;">numpy </span><span>= </span><span style="color:#699200;">&quot;0.17.1&quot;
+</span><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">pyo3 </span><span>= { </span><span style="color:#f55800;">version </span><span>= </span><span style="color:#699200;">&quot;0.17.1&quot;</span><span>, </span><span style="color:#f55800;">features </span><span>= [</span><span style="color:#699200;">&quot;extension-module&quot;</span><span>, </span><span style="color:#699200;">&quot;abi3-py37&quot;</span><span>, </span><span style="color:#699200;">&quot;num-complex&quot;</span><span>] }
+</span></mark></code></pre>
+<p>Three lines, highlighted above, are noteworthy:</p>
+<ul>
+<li>I ask Rust to build a <code>"cdylib"</code>, i.e. a regular shared library (a <code>.so</code> on
+Linux) rather than a Rust library as this is what Python can understand and
+load;</li>
+<li>the <code>juliaset</code> pure Rust library that we wrote before is marked as a
+dependency;</li>
+<li>the following features of PyO3 are used:
+<ul>
+<li><code>extension-module</code> to use the tools necessary to expose Rust code as a
+Python API;</li>
+<li><code>num-complex</code> to handle complex types and allow automatic conversions
+between Python types and <code>Complex64</code> on Rust side;</li>
+<li><code>abi3-py37</code> to build wheels that are compatible with Python 3.7 and above
+rather than only a specific Python version.</li>
+</ul>
+</li>
+</ul>
+<p>A straighforward strategy to write the Python API is to wrap the underlying
+Rust types in a newtype that is a <code>pyclass</code> (i.e. that Python can see as a
+regular class).  For instance, the Python counterpart to
+<code>juliaset::ComplexRegion</code> can be declared as follows:</p>
+<pre data-lang="rust" style="background-color:#ffffff;color:#4d4d4c;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8e44be;">use </span><span>pyo3::prelude::</span><span style="color:#1aa7b0;">*</span><span>;
+</span><span>
+</span><span style="color:#999999;">/// Define an area of the complex plane.
+</span><span>#[</span><span style="color:#f55800;">pyclass</span><span>(frozen)]
+</span><span style="color:#8e44be;">pub struct </span><span>ComplexRegion(::juliaset::ComplexRegion);
+</span></code></pre>
+<p>All the magic happens thanks to the <code>#[pyclass]</code> attribute. PyO3 implements the
+necessary machinery to expose <code>ComplexRegion</code> as a Python class.  It is marked
+as frozen here to make the instances immutable.  As a nice perk, the docstring
+of the Python class has the same content as the doc-comment.</p>
+<p>We then need to define methods, which can be done with an <code>impl</code> block with the
+<code>#[pymethods]</code> attribute:</p>
+<pre data-lang="rust" style="background-color:#ffffff;color:#4d4d4c;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8e44be;">use </span><span>numpy::{Complex64, PyArray2};
+</span><span>
+</span><span>#[</span><span style="color:#f55800;">pymethods</span><span>]
+</span><span style="color:#8e44be;">impl </span><span>ComplexRegion {
+</span><span>    #[</span><span style="color:#f55800;">new</span><span>]
+</span><span>    </span><span style="color:#8e44be;">fn </span><span style="color:#3366cc;">new</span><span>(</span><span style="color:#6969ff;">xleft</span><span>: </span><span style="color:#8e44be;">f64</span><span>, </span><span style="color:#6969ff;">xright</span><span>: </span><span style="color:#8e44be;">f64</span><span>, </span><span style="color:#6969ff;">yleft</span><span>: </span><span style="color:#8e44be;">f64</span><span>, </span><span style="color:#6969ff;">yright</span><span>: </span><span style="color:#8e44be;">f64</span><span>) -&gt; </span><span style="color:#8e44be;">Self </span><span>{
+</span><span>        </span><span style="color:#8e44be;">Self</span><span>(::juliaset::ComplexRegion::new(xleft, xright, yleft, yright))
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#999999;">/// Create an array spanning the region with the given resolution along the real axis.
+</span><span>    </span><span style="color:#8e44be;">fn </span><span style="color:#3366cc;">build</span><span>&lt;</span><span style="color:#8e44be;">&#39;py</span><span>&gt;(</span><span style="color:#1aa7b0;">&amp;</span><span style="color:#6969ff;">self</span><span>, </span><span style="color:#6969ff;">py</span><span>: Python&lt;</span><span style="color:#8e44be;">&#39;py</span><span>&gt;, </span><span style="color:#6969ff;">resolution</span><span>: </span><span style="color:#8e44be;">usize</span><span>) -&gt; </span><span style="color:#1aa7b0;">&amp;</span><span style="color:#8e44be;">&#39;py </span><span>PyArray2&lt;Complex64&gt; {
+</span><span>        </span><span style="color:#8e44be;">let</span><span> out </span><span style="color:#1aa7b0;">= </span><span style="color:#f55800;">self</span><span>.</span><span style="color:#6969ff;">0.</span><span style="color:#3366cc;">build</span><span>(resolution);
+</span><span>        PyArray2::from_owned_array(py, out)
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>The <code>#[new]</code> attribute marks the constructor method. This one is
+straightforward, PyO3 even handles the <code>float</code> to <code>f64</code> conversion for us.</p>
+<p>The <code>build</code> method is a little more interesting.  This method returns a numpy
+array (<code>numpy::PyArray</code> on Rust's side).  The lifetime of the latter is managed
+at runtime by Python rather than statically by Rust's borrow checker, which is
+why we need to take a <code>Python&lt;'py&gt;</code> token.  This token doesn't appear in the
+method signature when calling it from Python, it is merely the way PyO3 models
+holding the Global Interpreter Lock of Python.  Making the widely different
+memory management models of Rust and Python play nicely together is not a
+trivial task, but thankfully PyO3 does a great job at abstracting that problem
+for us.  As you can see in this example, the <code>numpy</code> crate offers a
+straighforward way to transform the owned <code>ndarray::Array</code> we get from
+<code>juliaset::ComplexRegion::build</code> into the Python-managed <code>numpy::PyArray</code> we
+want.</p>
+<p>The final step needed to expose our class to Python is to add it to a Python
+module.  Once again, PyO3 makes it fairly straighforward:</p>
+<pre data-lang="rust" style="background-color:#ffffff;color:#4d4d4c;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#999999;">/// Routines to compute Julia sets for imaging purposes
+</span><span>#[</span><span style="color:#f55800;">pymodule</span><span>]
+</span><span style="color:#8e44be;">fn </span><span style="color:#3366cc;">juliaset</span><span>(</span><span style="color:#6969ff;">_py</span><span>: Python&lt;&#39;</span><span style="color:#1aa7b0;">_</span><span>&gt;, </span><span style="color:#6969ff;">pymod</span><span>: </span><span style="color:#1aa7b0;">&amp;</span><span>PyModule) -&gt; PyResult&lt;()&gt; {
+</span><span>    pymod.add_class::&lt;ComplexRegion&gt;()</span><span style="color:#1aa7b0;">?</span><span>;
+</span><span>    </span><span style="color:#f0ae00;">Ok</span><span>(())
+</span><span>}
+</span></code></pre>
+<p>One noteworthy detail here is the <code>PyResult&lt;T&gt;</code> return type.  It is an alias
+of <code>Result&lt;T, PyErr&gt;</code>, and more importantly is the way PyO3 models operations
+that can raise Python exceptions.  As adding a class to a module is a faillible
+operation, it returns a <code>PyResult</code>.  If the operation fails, it returns a
+<code>Result::Err(PyErr)</code> and you end up with an exception on Python side.</p>
+<h2 id="building-and-using-the-python-package">Building and using the Python package</h2>
+<p>As shown previously, PyO3 makes it easy to expose Rust code through a Python
+API.  It also makes it easy to <a href="https://www.maturin.rs">build a Python wheel using
+maturin</a>.  All that is needed to build and install our
+crate as a Python package is the following <code>/py-api/pyproject.toml</code>:</p>
+<pre data-lang="toml" style="background-color:#ffffff;color:#4d4d4c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#f55800;">build-system</span><span>]
+</span><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">requires </span><span>= [</span><span style="color:#699200;">&quot;maturin&gt;=0.13.2,&lt;0.14&quot;</span><span>]
+</span></mark><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">build-backend </span><span>= </span><span style="color:#699200;">&quot;maturin&quot;
+</span></mark><span>
+</span><span>[</span><span style="color:#f55800;">project</span><span>]
+</span><span style="color:#f55800;">name </span><span>= </span><span style="color:#699200;">&quot;juliaset&quot;
+</span><span style="color:#f55800;">requires-python </span><span>= </span><span style="color:#699200;">&quot;&gt;=3.7&quot;
+</span><span style="color:#f55800;">dependencies </span><span>= [
+</span><mark style="background-color:#e8e8e8;"><span>    </span><span style="color:#699200;">&quot;numpy&gt;=1.21&quot;</span><span>,
+</span></mark><span>]
+</span></code></pre>
+<p>The highlighted lines declare <code>maturin</code> as build system for our Python package,
+and <code>numpy</code> as a runtime dependency (required by the <code>numpy</code> crate on Rust's
+side).  Installing our crate as a Python package is then as simple as</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#4d4d4c;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#f55800;">$</span><span style="color:#3366cc;"> python3</span><span style="color:#6969ff;"> -m</span><span style="color:#3366cc;"> pip install ./py-api
+</span></code></pre>
+<p>We can then import and use it as any other Python package, <a href="https://adrienmorison.com/julia-py-rust/julia_rust.py">here is a Python
+program</a> that uses our package to produce the target image.
+The runtime is now down to 2.8s, a further ~12% improvement from the 3.2s with
+<code>numba</code>!  While the performance reached with <code>numba</code> is certainly impressive
+and probably sufficient in plenty of contexts, this shows a bespoke low-level
+code can still be significantly faster and worth the effort.</p>
+<p>The PyO3 project offers ways to build and publish wheels for several platforms,
+please see the documentations for more information.</p>
+<p>One thing still missing from PyO3 at the time of writing is the automatic
+generation of type annotations of the Python library, e.g. for consumption by
+<a href="https://mypy.readthedocs.io/en/stable/"><code>mypy</code> (static type checker)</a> or a
+<a href="https://en.wikipedia.org/wiki/Language_Server_Protocol">language server</a>.
+This requires manually writing a stub with type annotations if you care about
+these things, see <code>/py-api/juliaset.pyi</code> for our package.</p>
+<h2 id="rust-cli">Rust CLI</h2>
+<p>For comparison purposes, I also wrote a CLI in Rust around the pure Rust
+library.  It is behind the <code>cli</code> <em>feature</em> to avoid having unused dependencies
+when building only the library.  The relevant parts of <code>/Cargo.toml</code> are
+highlighted here:</p>
+<pre data-lang="toml" style="background-color:#ffffff;color:#4d4d4c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#f55800;">package</span><span>]
+</span><span style="color:#f55800;">name </span><span>= </span><span style="color:#699200;">&quot;juliaset&quot;
+</span><span style="color:#f55800;">version </span><span>= </span><span style="color:#699200;">&quot;0.1.0&quot;
+</span><span style="color:#f55800;">edition </span><span>= </span><span style="color:#699200;">&quot;2021&quot;
+</span><span style="color:#f55800;">rust-version </span><span>= </span><span style="color:#699200;">&quot;1.60&quot;
+</span><span>
+</span><span>[</span><span style="color:#f55800;">dependencies</span><span>]
+</span><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">clap </span><span>= { </span><span style="color:#f55800;">version </span><span>= </span><span style="color:#699200;">&quot;4.0.1&quot;</span><span>, </span><span style="color:#f55800;">features </span><span>= [</span><span style="color:#699200;">&quot;derive&quot;</span><span>], </span><span style="color:#f55800;">optional </span><span>= </span><span style="color:#6969ff;">true </span><span>}
+</span></mark><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">image </span><span>= { </span><span style="color:#f55800;">version </span><span>= </span><span style="color:#699200;">&quot;0.24.3&quot;</span><span>, </span><span style="color:#f55800;">default-features </span><span>= </span><span style="color:#6969ff;">false</span><span>, </span><span style="color:#f55800;">features </span><span>= [</span><span style="color:#699200;">&quot;png&quot;</span><span>], </span><span style="color:#f55800;">optional </span><span>= </span><span style="color:#6969ff;">true </span><span>}
+</span></mark><span style="color:#f55800;">ndarray </span><span>= </span><span style="color:#699200;">&quot;0.15.6&quot;
+</span><span style="color:#f55800;">num-complex </span><span>= </span><span style="color:#699200;">&quot;0.4.2&quot;
+</span><span>
+</span><mark style="background-color:#e8e8e8;"><span>[</span><span style="color:#f55800;">features</span><span>]
+</span></mark><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">cli </span><span>= [</span><span style="color:#699200;">&quot;dep:image&quot;</span><span>, </span><span style="color:#699200;">&quot;dep:clap&quot;</span><span>]
+</span></mark><mark style="background-color:#e8e8e8;"><span>
+</span></mark><mark style="background-color:#e8e8e8;"><span>[[</span><span style="color:#f55800;">bin</span><span>]]
+</span></mark><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">name </span><span>= </span><span style="color:#699200;">&quot;juliaset&quot;
+</span></mark><mark style="background-color:#e8e8e8;"><span style="color:#f55800;">required-features </span><span>= [</span><span style="color:#699200;">&quot;cli&quot;</span><span>]
+</span></mark><span>
+</span><span>[</span><span style="color:#f55800;">workspace</span><span>]
+</span><span style="color:#f55800;">members </span><span>= [</span><span style="color:#699200;">&quot;py-api&quot;</span><span>]
+</span></code></pre>
+<p><code>clap</code> manages command line arguments, and <code>image</code> allows us to easily create a
+picture from an array.</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#4d4d4c;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#f55800;">$</span><span style="color:#3366cc;"> cargo run</span><span style="color:#6969ff;"> --release -F</span><span style="color:#3366cc;"> cli</span><span style="color:#1aa7b0;"> --</span><span style="color:#3366cc;"> -h
+</span></code></pre>
+<p>builds and run the CLI tool, asking it to display its help message (<code>-h</code>
+option) generated by <code>clap</code>.</p>
+<p>It has a similar runtime to the Python program calling the Rust backend (2.8s).</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#4d4d4c;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#f55800;">$</span><span style="color:#3366cc;"> time ./target/release/juliaset</span><span style="color:#6969ff;">  -x</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">-0.1</span><span style="color:#6969ff;"> -X</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">0.1</span><span style="color:#6969ff;"> -y</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">-0.1</span><span style="color:#6969ff;"> -Y</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">0.1</span><span style="color:#6969ff;"> -m</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">20</span><span style="color:#6969ff;"> -M</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">100</span><span style="color:#6969ff;"> -R</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">4000
+</span><span style="color:#f55800;">./target/release/juliaset</span><span style="color:#6969ff;"> -x</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">-0.1</span><span style="color:#6969ff;"> -X</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">0.1</span><span style="color:#6969ff;"> -y</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">-0.1</span><span style="color:#6969ff;"> -Y</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">0.1</span><span style="color:#6969ff;"> -m</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">20</span><span style="color:#6969ff;"> -M</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">100</span><span style="color:#6969ff;"> -R</span><span style="color:#1aa7b0;">=</span><span style="color:#3366cc;">4000  2.83s user 0.05s system 99% cpu 2.876 total
+</span></code></pre>
+<p>Note however that the obtained image is more compressed than the Python
+counterpart (2.2 MB vs 2.4 MB).  Changing the compression algorithm can lead to
+huge differences on the runtime as a significant chunk of the runtime is now
+spent compressing the output image:</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#4d4d4c;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#f55800;">$</span><span style="color:#3366cc;"> perf report
+</span><span>  </span><span style="color:#f55800;">69.60%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> ndarray::impl_methods::</span><span style="color:#1aa7b0;">&lt;</span><span style="color:#3366cc;">impl ndarray::ArrayBase</span><span style="color:#1aa7b0;">&lt;</span><span style="color:#3366cc;">S,D</span><span style="color:#1aa7b0;">&gt;&gt;</span><span style="color:#3366cc;">::mapv_into_any
+</span><mark style="background-color:#e8e8e8;"><span>  </span><span style="color:#f55800;">27.48%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> miniz_oxide::deflate::core::compress_inner
+</span></mark><span>   </span><span style="color:#f55800;">1.07%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> ndarray::iterators::to_vec_mapped
+</span><span>   </span><span style="color:#f55800;">0.63%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> ndarray::iterators::to_vec_mapped
+</span><span>   </span><span style="color:#f55800;">0.51%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> ndarray::impl_methods::</span><span style="color:#1aa7b0;">&lt;</span><span style="color:#3366cc;">impl ndarray::ArrayBase</span><span style="color:#1aa7b0;">&lt;</span><span style="color:#3366cc;">S,D</span><span style="color:#1aa7b0;">&gt;&gt;</span><span style="color:#3366cc;">::map
+</span><span>   </span><span style="color:#f55800;">0.33%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> miniz_oxide::deflate::core::compress_block
+</span><span style="color:#f55800;">...
+</span></code></pre>
+<p>If only minimal compression is used (<code>--fast</code> flag of the CLI), the file
+produced takes up 3.1 MB and the runtime falls to 2.1s.</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#4d4d4c;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#f55800;">$</span><span style="color:#3366cc;"> perf report  </span><span style="color:#999999;"># with minimal compression
+</span><span>  </span><span style="color:#f55800;">94.12%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> ndarray::impl_methods::</span><span style="color:#1aa7b0;">&lt;</span><span style="color:#3366cc;">impl ndarray::ArrayBase</span><span style="color:#1aa7b0;">&lt;</span><span style="color:#3366cc;">S,D</span><span style="color:#1aa7b0;">&gt;&gt;</span><span style="color:#3366cc;">::mapv_into_any
+</span><span>   </span><span style="color:#f55800;">1.77%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> miniz_oxide::deflate::core::compress_inner
+</span><span>   </span><span style="color:#f55800;">1.39%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> ndarray::iterators::to_vec_mapped
+</span><span>   </span><span style="color:#f55800;">0.84%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> ndarray::iterators::to_vec_mapped
+</span><span>   </span><span style="color:#f55800;">0.80%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> miniz_oxide::deflate::core::compress_block
+</span><span>   </span><span style="color:#f55800;">0.66%</span><span style="color:#3366cc;">  juliaset  juliaset              </span><span style="color:#8e44be;">[</span><span style="color:#3366cc;">.</span><span style="color:#8e44be;">]</span><span style="color:#3366cc;"> ndarray::impl_methods::</span><span style="color:#1aa7b0;">&lt;</span><span style="color:#3366cc;">impl ndarray::ArrayBase</span><span style="color:#1aa7b0;">&lt;</span><span style="color:#3366cc;">S,D</span><span style="color:#1aa7b0;">&gt;&gt;</span><span style="color:#3366cc;">::map
+</span><span style="color:#f55800;">...
+</span></code></pre>
+<p>We now spend 94% of the runtime computing what we're interested in, that's
+pretty great!</p>
+<h1 id="closing-remarks">Closing remarks</h1>
+<p>I hope this entry convinced you that Rust with PyO3 is a viable candidate to
+write computational-intensive parts of Python programs that cannot be easily
+expressed with <code>numpy</code>.  The following table summarizes the timings of various
+implementations:</p>
+<table><thead><tr><th>Implementation</th><th>Runtime (s)</th><th>Speedup naive Python</th><th>Speedup previous</th></tr></thead><tbody>
+<tr><td>naive Python (<code>np.vectorize</code>)</td><td>139</td><td>0%</td><td>-</td></tr>
+<tr><td>numpy looping</td><td>19</td><td>86.3%</td><td>86.3%</td></tr>
+<tr><td>numba</td><td>6.0</td><td>95.7%</td><td>68.4%</td></tr>
+<tr><td>numba (no square root)</td><td>3.2</td><td>97.7%</td><td>46.7%</td></tr>
+<tr><td>Rust backend / Rust CLI</td><td>2.8</td><td>98.0%</td><td>12.5%</td></tr>
+<tr><td>Rust CLI (minimal compression)</td><td>2.1</td><td>98.5%</td><td>25.0%</td></tr>
+</tbody></table>
+<p>A general strategy to improve the performances of a Python program that cannot
+be quite expressed with <code>numpy</code> loops or methods would be to try the following
+implementations:</p>
+<ul>
+<li>wrap in <code>np.vectorize</code> the calculation written in Python;</li>
+<li>rewrite the computation to use implicit <code>numpy</code> loops and methods as much as
+possible, even if it means doing more work;</li>
+<li>wrap in <code>numba.vectorize</code> the calculation written in Python;</li>
+<li>write a bespoke low-level implementation of the desired calculation and
+expose it to Python.</li>
+</ul>
+<p>For most problems, there is a good chance that each of those implementations
+will yield better performance than the previous one.  However, as always when
+dealing with performances, results may vary widely depending on the hardware,
+the versions of the tools, the operating system, and, more importantly, the
+actual problem at hand.  In particular, the effective speed-up gained between
+each of those implementations is highly problem-dependent.  Profiling and
+measuring is in any case the only sure way to identify bottlenecks and which
+optimizations actually improve performance.</p>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https://adrienmorison.com/tags/python/">#Python</a>
+                    
+                        <a href="https://adrienmorison.com/tags/rust/">#Rust</a>
+                    
+                        <a href="https://adrienmorison.com/tags/julia-sets/">#Julia sets</a>
+                    
+                </div>
+            
+            
+
+        
+
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+          <script type="text/javascript" src="https://adrienmorison.com/even.js" ></script>
+      
+    </body>
+
+</html>
