@@ -6,6 +6,10 @@ template = "about.html"
 
 Publications:
 
+- **Morison A**, Baraffe I, Le Saux A, Guillet T, Vlaykov D, Constantino T, Goffrey T, and Pratt J.\
+  Effects of stratification on overshooting and waves atop the convective core of $5 M_\odot$ main-sequence stars.\
+  _Monthly Notices of the Royal Astronomical Society_, 2024.
+  [DOI](https://doi.org/10.1093/mnras/stae1678).
 - **Morison A**, Labrosse S, Deguen R, and Alboussière T.\
   Onset of thermal convection in a solid spherical shell with melting at either or both boundaries.\
   _GJI_, 2024.
