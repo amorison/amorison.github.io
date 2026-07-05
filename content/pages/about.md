@@ -4,12 +4,15 @@ path = "about"
 template = "about.html"
 +++
 
-I am a postdoc research fellow at University of Exeter (UK). This website is my
+I am a Research Software Engineer at University of Glasgow (UK). This website is my
 informal blog where I intend to write short articles accessible to people with
 some general scientific background but who are not necessarily experts in my
-own field.  My primary research topic is the dynamics and evolution of
-planetary interiors.  My main tool to do so is computational fluid dynamics.  I
-use theoretical and numerical methods to modelize and simulate convection in
+own field.
+
+During my PhD (ENS de Lyon, France), I studied the dynamics and evolution of
+planetary interiors. During my postdoc (University of Exeter, UK), I shifted to
+stellar interiors. My main investigative tool was computational fluid dynamics.
+I used theoretical and numerical methods to modelize and simulate convection in
 planetary contexts.
 [Here is the list of my publications](@/pages/publications.md).
 My research and personal curiosity has led me to various branches of physics,
@@ -30,6 +33,12 @@ mathematics, and computer sciences, including but not limited to:
   algorithms to solve numerical problems;
 - *type systems* as a way to enforce invariants/guarantees in softwares.
 
+I currently work at the University of Glasgow as Research Software Engineer for
+the school of Medecine, Veterinary, and Life Sciences. Although the research
+topics are quite different from what I did before, I leverage my expertise in
+modelling and software design to solve complex problems in an efficient and
+maintainable way.
+
 You can find me on
 
 - [ResearchGate](https://www.researchgate.net/profile/Adrien-Morison)
@@ -45,14 +54,12 @@ Here is a (chaotic) list of miscellaneous tools I use and related links.
   a rich ecosystem.
     - The [standard library](https://docs.python.org/3/library/) is huge and
       well-documented.
-    - [numpy](https://numpy.org/), for fast and convenient ndarray manipulation
-      and linear algebra.
-    - [scipy](https://www.scipy.org/scipylib/index.html), a library of
-      numerical routines built around numpy.
-    - [matplotlib](https://matplotlib.org/), to plot your data.
+    - [uv](https://docs.astral.sh/uv/), to manage Python environment for
+      development and deployment purposes.
 - [Rust](https://www.rust-lang.org/), a system programming language that
   manages to combine excellent performances, safety, and high-level
   abstractions thanks to a clever type system and ownership model.
+  This is my current language of choice.
     - The [Rust book](https://doc.rust-lang.org/book/) is a great introduction
       to the language.
     - The [standard library documentation](https://doc.rust-lang.org/std/)
@@ -61,9 +68,13 @@ Here is a (chaotic) list of miscellaneous tools I use and related links.
     - The [Reference](https://doc.rust-lang.org/reference/index.html) and
       [Rustonomicon](https://doc.rust-lang.org/nomicon/index.html) go into the
       depth of the language.
+    - [PyO3](https://pyo3.rs/), to interface with Python.
 - [LaTeX](https://www.latex-project.org/), the full-fledged typesetting system.
+- [Typst](https://typst.app), a well-designed and extremely fast typesetting system.
 - [Vim](https://www.vim.org/), the famous editor that's available pretty much
   anywhere.
+- [neovim](https://neovim.io), a refactor of Vim which integrates many modern
+  features of IDEs (such as LSP).
 - [Bitwarden](https://bitwarden.com/), a convenient open-source password
   manager.
 - [Z shell](https://www.zsh.org/), a POSIX-compatible shell with great
